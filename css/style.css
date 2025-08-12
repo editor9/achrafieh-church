@@ -39,7 +39,7 @@ header.container {
 
 .logo {
     max-width: 100%;         /* Ensure the logo scales within its container */
-    height: auto;            /* Maintain aspect ratio */
+    height: 80px;            /* Maintain aspect ratio */
 }
 
 /* Basic styles for layout */
