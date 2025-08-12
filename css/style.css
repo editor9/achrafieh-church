@@ -85,7 +85,9 @@ label[for="category-select"] {
     display: none;
 }
 
-
+#sermons-section{
+    margin-top: 60px;
+} 
 #input-container {
     display: flex;
     align-items: center;
