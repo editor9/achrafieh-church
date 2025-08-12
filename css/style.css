@@ -38,8 +38,9 @@ header.container {
 }
 
 .logo {
-    max-width: 100%;         /* Ensure the logo scales within its container */
-    height: 80px;            /* Maintain aspect ratio */
+    margin-block: 1em;
+	max-width: 100%;         /* Ensure the logo scales within its container */
+    height: 70px;            /* Maintain aspect ratio */
 }
 
 /* Basic styles for layout */
