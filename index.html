@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كنيسة الاشرفية ترانيم مسيحية</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <meta name="author" content="elie akiki" />
+    <style>
+      /* small extras to make the menu and sermons section look good */
+      nav.topmenu { display:flex; gap:12px; justify-content:center; margin:12px 0; }
+      nav.topmenu a { text-decoration:none; padding:8px 12px; border-radius:6px; background:#f1f5f4; color:#28363D; }
+      nav.topmenu a.active { background:#28363D; color:white; }
+      .hidden { display:none; }
+      .container-main { max-width:1200px; margin-inline:auto; padding-inline:5%; }
+      #sermons-list { list-style:none; padding:0; margin:0; }
+      .sermon-item { background:#f8f9f9; margin:10px 0; padding:12px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+      .meta { font-weight:700; margin-bottom:6px; }
+      .note { color:#8a3e3e; font-size:0.95rem; margin-top:6px; }
+      .json-output { width:100%; height:120px; font-family:monospace; }
+      .small-btn { padding:6px 10px; border-radius:6px; border:none; background:#007bff; color:#fff; cursor:pointer; }
+      @media (max-width:700px){ nav.topmenu { flex-wrap:wrap; } }
+    </style>
+</head>
+<body>
+
+  <header class="container">
+    <div class="container-main">
+      <nav class="topmenu" aria-label="main menu">
+        <a href="#" id="tab-hymns" class="active">🎵 الترانيم</a>
+        <a href="#" id="tab-sermons">🎙 العظات</a>
+        <a href="#" id="tab-upload">⬆ إضافة عظة</a>
+      </nav>
+
+      <h1>
+        <img class="logo" src="img/logo.png" alt="كنيسة الاشرفية ترانيم مسيحية">
+      </h1>
+    </div>
+  </header>
+
+  <main class="container-main">
+
+    <!-- ===== HYMS SECTION (your existing content) ===== -->
+    <section id="hymns-section">
+      <!-- --- keep your current hymns HTML unchanged --- -->
+      <!-- Dropdown to choose between Book 1 and Book 2 -->
+      <div dir="rtl" class="slide-selector">
+        <label for="book-select">اختر الكتاب</label>
+        <select class="slide-selector" id="book-select">
+            <option value="1" selected>الكتاب الأول</option>
+            <option value="2">الكتاب الثاني</option>
+        </select>
+      </div>
+
+      <div class="slide-selector" id="category-container">
+         <label for="category-select">دليل المواضيع</label>
+          <select class="slide-selector" id="category-select"></select>
+      </div>
+
+      <div dir="rtl" class="slide-selector">
+          <label for="search-input">بحث بالكلمات</label>
+          <input type="text" id="search-input" placeholder="أدخل عنوان او قرار">
+          <select id="search-results">
+              <option value="">اختر ترنيمة...</option>
+          </select>
+      </div>
+
+      <div dir="rtl" class="slide-selector">
+          <label for="image-input">ادخل رقم الترنيمة</label>
+          <input class="slide-selector innum" type="number" id="image-input" min="1" max="315" value="1" placeholder="1-315">
+      </div>
+
+      <p id="error-message" style="display:none;">Please enter a valid number</p>
+
+      <div>
+          <img id="selected-image" src="" alt="Selected Artwork">
+      </div>
+
+      <section class="container">
+          <aside>
+              <img id="centered-image" src="img/colors.jpg" alt="Color palette">
+          </aside>
+      </section>
+    </section>
+
+    <!-- ===== SERMONS SECTION ===== -->
+    <section id="sermons-section" class="hidden">
+      <h2>🎙 عظات الكنيسة</h2>
+
+      <div>
+        <label for="sermon-search">ابحث عن عظات:</label>
+        <input id="sermon-search" type="search" placeholder="بحث بالتاريخ، القراءة..." style="width:100%; padding:8px; margin:8px 0;">
+      </div>
+
+      <ul id="sermons-list" aria-live="polite"></ul>
+
+      <div id="player-container" style="margin-top:12px;">
+        <audio id="main-audio" controls style="width:100%;">
+          <source id="main-source" src="" type="audio/mpeg">
+          متصفحك لا يدعم تشغيل الصوت.
+        </audio>
+        <p id="current-title" style="font-weight:700; margin-top:8px;"></p>
+        <p id="format-note" class="note" style="display:none;"></p>
+      </div>
+    </section>
+
+    <!-- ===== UPLOAD SECTION (password-protected) ===== -->
+    <section id="upload-section" class="hidden">
+      <h2>⬆ إضافة عظة (Admin)</h2>
+      <div id="upload-login">
+        <p>أدخل كلمة المرور لعرض نموذج الرفع:</p>
+        <input id="admin-password" type="password" placeholder="كلمة المرور" style="padding:8px;">
+        <button id="admin-enter" class="small-btn">دخول</button>
+      </div>
+
+      <div id="upload-form-wrap" class="hidden" style="margin-top:12px;">
+        <form id="upload-form">
+          <!--
+          <label>عنوان العظة:</label>
+          <input id="u-title" type="text" required style="width:100%; padding:7px; margin:6px 0;">
+          -->
+          <label>التاريخ:</label>
+          <input id="u-date" type="date" required style="width:100%; padding:7px; margin:6px 0;">
+          <label>اليوم:</label>
+          <input id="u-day" type="text" required placeholder="مثل: الأحد" style="width:100%; padding:7px; margin:6px 0;">
+          <label>قراءة الكتاب:</label>
+          <input id="u-bible" type="text" required placeholder="مثلاً: يوحنا 3:16" style="width:100%; padding:7px; margin:6px 0;">
+          <label>اسم ملف MP3 (مثال: sermon-2025-08-11.mp3)</label>
+          <input id="u-file" type="text" required placeholder="sermon1.mp3" style="width:100%; padding:7px; margin:6px 0;">
+          <p class="small-quiet">ملاحظة: بعد الضغط على "توليد JSON" — ارفع الملف <strong>يدوياً</strong> إلى مجلد <code>/sermons/</code> عبر GitHub ثم انسخ السطر JSON الناتج إلى ملف <code>sermons.json</code> في المستودع.</p>
+          <button id="generate-json" class="small-btn" type="button">توليد JSON</button>
+        </form>
+
+        <h3>النتيجة (انسخ هذا السطر وألصقه داخل <code>sermons.json</code>)</h3>
+        <textarea id="json-output" class="json-output" readonly></textarea>
+        <div style="margin-top:8px;">
+          <button id="copy-json" class="small-btn">نسخ JSON</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div dir="rtl">
+      <p>للاتصال: <a href="mailto:churchachrafieh@gmail.com">churchachrafieh@gmail.com</a></p>
+      <p>العنوان: 90 شارع طبال، 68 منطقة الغابي، الاشرفية، بيروت لبنان</p>
+    </div>
+  </footer>
+
+  <!-- your unified script (hymns + sermons) -->
+  <script src="./js/script.js"></script>
+</body>
+</html>
