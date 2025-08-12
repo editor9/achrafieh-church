@@ -105,7 +105,8 @@ label[for="category-select"] {
 }
 
 .container-main {
-    font-family: 'Roboto Slab', sans-serif;
+    margin-top: auto;
+	font-family: 'Roboto Slab', sans-serif;
     font-size: 22px;
 }
 
