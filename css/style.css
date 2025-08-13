@@ -190,9 +190,9 @@ label[for="category-select"] {
 	text-align: center;
 	font-family: 'Roboto Slab', sans-serif;
 	font-size: 30px;
-	margin-block: 2em;
+	margin-block: 1em;
 	border: none;
-	margin-top: 50px;
+	margin-top: auto;
 }
 
 .innum {
